@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
-import { Input, Button , Link , Divider } from '@nextui-org/react';
+import { Input, Button , Divider } from '@nextui-org/react';
+import Link  from 'next/link';
 import {EyeFilledIcon} from "../../../icons/EyeFilledIcon";
 import {EyeSlashFilledIcon} from "../../../icons/EyeSlashFilledIcon";
 
@@ -58,7 +59,7 @@ const Page = () => {
           <Link href='' className='ml-4 '>Forget passowrd</Link>
           </div>
           <Divider className='m-3 mt-5 bg-white'/>
-          <Button className='mt-1 text-black ml-7'><Link href='/register' className='m-5 text-black'>Create New User</Link></Button>
+          <Button as={Link} href='/register'className='mt-1 text-black ml-14  '>Create New User</Button>
         </form>
       </div>
     </div>
