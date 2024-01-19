@@ -5,27 +5,34 @@ import { EyeFilledIcon } from "../../../icons/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../../icons/EyeSlashFilledIcon";
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-
-
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
+    const [activeInput, setActiveInput] = useState(null);
+    const router = useRouter()
 
-    const registerUser =async(values)=>{
+    const handleFocus = (fieldName) => {
+        setActiveInput(fieldName);
+    };
+
+    const handleBlur = () => {
+        setActiveInput(null);
+    };
+
+    const registerUser = async (values) => {
+            const res = await fetch('http://localhost:5000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values)
+            })
+            const data = await res.json()
+            toast(data.msg);
+            if ( res.status === 200)  router.push(`/`)
        
-       try {
-        await fetch('http://localhost:5000/register',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(values)
-       })
-       alert("registration successfull");
-       } catch (error) {
-        alert("User already exist");
-        res.status(401).send("user already exist")
-        console.log(error)
-       } 
     }
 
     const SignupSchema = Yup.object().shape({
@@ -38,7 +45,7 @@ const page = () => {
             .min(6, 'Too Short!')
             .max(50, 'Too Long!')
             .required('Required'),
-        confirmPassword:Yup.string()
+        confirmPassword: Yup.string()
             .required('Required')
             .oneOf([Yup.ref('password'), null], "Passwords didn't match"),
     });
@@ -48,45 +55,47 @@ const page = () => {
             name: '',
             email: '',
             password: '',
-            confirmPassword:'',
+            confirmPassword: '',
         },
-        validationSchema:SignupSchema,
-        onSubmit: values => { 
+        validationSchema: SignupSchema,
+        onSubmit: values => {
             console.log(JSON.stringify(values, null, 2))
             registerUser(values)
         },
     });
 
     return (
+        
         <div className="flex flex-col justify-center items-center  h-screen bg-black text-white" style={{ backgroundImage: 'url("bgimage.jpg")' }}>
             <h1 className='text-4xl font-bold mb-8'>YoChat</h1>
+            
             <form onSubmit={formik.handleSubmit}>
                 <Input
                     isRequired
                     name='name'
-                    className="max-w-xs mb-4 "
+                    className="max-w-xs mb-2 "
                     type="name"
                     label="Name"
                     placeholder="Enter your Full name"
                     onChange={formik.handleChange}
+                    onFocus={() => handleFocus('name')}
+                    onBlur={handleBlur}
                     value={formik.values.name}
                 />
-                {formik.errors.name && formik.touched.name ? (
-                    <div className='text-white'>{formik.errors.name}</div>
-                ) : null}
+                {activeInput === 'name' &&<p className='mb-2 ml-3 font-thin text-sm text-red-500'>{formik.errors.name}</p>}
                 <Input
                     isRequired
                     name='email'
-                    className="max-w-xs mb-4"
+                    className="max-w-xs mb-2"
                     type="email"
                     label="Email"
                     placeholder="Enter your email"
                     onChange={formik.handleChange}
+                    onFocus={() => handleFocus('email')}
+                    onBlur={handleBlur}
                     value={formik.values.email}
                 />
-                {formik.errors.email && formik.touched.email ? (
-                    <div>{formik.errors.email}</div>
-                ) : null}
+                {activeInput === 'email' &&<p className='mb-2 ml-3 font-thin text-sm text-red-500'>{formik.errors.email}</p>}
                 <Input
                     isRequired
                     name='password'
@@ -102,13 +111,13 @@ const page = () => {
                         </button>
                     }
                     type={isVisible ? "text" : "password"}
-                    className="max-w-xs mb-4"
+                    className="max-w-xs mb-2"
                     onChange={formik.handleChange}
+                    onFocus={() => handleFocus('password')}
+                    onBlur={handleBlur}
                     value={formik.values.password}
                 />
-                {formik.errors.password && formik.touched.password ? (
-                    <div>{formik.errors.password}</div>
-                ) : null}
+                {activeInput === 'password' &&<p className='mb-2 ml-3 font-thin text-sm text-red-500'>{formik.errors.password}</p>}
                 <Input
                     isRequired
                     name='confirmPassword'
@@ -124,13 +133,13 @@ const page = () => {
                         </button>
                     }
                     type={isVisible ? "text" : "password"}
-                    className="max-w-xs mb-4"
+                    className="max-w-xs mb-2"
                     onChange={formik.handleChange}
+                    onFocus={() => handleFocus('confirmPassword')}
+                    onBlur={handleBlur}
                     value={formik.values.confirmPassword}
                 />
-                {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
-                    <div className='text-white'>{formik.errors.confirmPassword}</div>
-                ) : null}
+                {activeInput === 'confirmPassword' &&<p className='mb-2 ml-3 font-thin text-sm text-red-500'>{formik.errors.confirmPassword}</p>}
                 <Button className='ml-20' type='submit'  >
                     Sign Up
                 </Button>
