@@ -4,18 +4,42 @@ import { Input, Button , Divider } from '@nextui-org/react';
 import Link  from 'next/link';
 import {EyeFilledIcon} from "../../../icons/EyeFilledIcon";
 import {EyeSlashFilledIcon} from "../../../icons/EyeSlashFilledIcon";
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 const Page = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const login = () => {
-    // Implement login logic here
-  };
+  const login = async (values) => {
+    const res = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+  })
+  const data = await res.json()
+  toast(data.msg);
+  if ( res.status === 200)  router.push(`/`)  };
+  const SignInSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string()
+        .min(6, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
 
+});
+
+const formik = useFormik({
+    initialValues: {
+        email: '',
+        password: '',
+    },
+    validationSchema: SignInSchema,
+    onSubmit: values => {
+        console.log(JSON.stringify(values, null, 2))
+        login(values)
+    },
+});
 
 
   return (
@@ -25,23 +49,25 @@ const Page = () => {
         <section className='ml-5'>Stay connected !</section>
       </div>
       <div className="flex-1 flex flex-col justify-center items-center  ">
-        <form className='border-1 p-20 rounded-2xl backdrop-blur-md'>
+        <form onSubmit={formik.handleSubmit} className='border-1 p-20 rounded-2xl backdrop-blur-md'>
           <Input
             isRequired
+            name='email'
             className="max-w-xs mb-4"
             type="email"
             label="Email"
+            onChange={formik.handleChange}
             placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formik.values.email}
           />
+          {formik.errors.email}
           <Input
             isRequired
+            name='password'
             label="Password"
             placeholder="Enter your password"
-            // type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.password}
             className="max-w-xs mb-4"
               endContent={
                         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
@@ -55,7 +81,7 @@ const Page = () => {
                       type={isVisible ? "text" : "password"}
           />
           <div>
-          <Button onClick={login}>Log in</Button>
+          <Button type='submit'>Log in</Button>
           <Link href='' className='ml-4 '>Forget passowrd</Link>
           </div>
           <Divider className='m-3 mt-5 bg-white'/>

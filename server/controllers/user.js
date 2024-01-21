@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const bcrypt = require('bcrypt');
+const saltRounds = 10
 
 
 //controller to register new user using POST: '/register'
@@ -11,15 +12,37 @@ const registerNewUser = async (req,res)=>{
             msg:"Email already used."
         })
     }
-    const secPassword = await bcrypt.hash(myPlaintextPassword, saltRounds);
-    await User.create({
-        name:req.body.name,
-        email:req.body.email,
-        password:secPassword
-    })
+    const secPassword = await bcrypt.hash(req.body.password, saltRounds); //encrypting password
+    req.body.password= secPassword
+    await User.create(req.body)
     res.json({
         msg :"Successfully created new account."
     })
 }
+const loginUser = async (req,res)=>{
+    //checkin  user email
+    const userDetails = await User.findOne({email:req.body.email})
+    if (userDetails){
+        console.log(userDetails)
+        //comparing hash password with login password
+        const match = await bcrypt.compare(req.body.password, userDetails.password)
+        console.log(req.body.password)
+        if (match){
+            console.log(match)
+            console.log('match')
+            res.json({
+                msg:'Login Successfull.'
+            })
+        }else             console.log('nomatch')
+        // res.json({
+        //         msg:'Invalid Password.'
+        // })
+    }else{
+         res.status(403).json({
+            msg:"Invalid Email."
+        })
+    }
+    
+}
 
-module.exports={registerNewUser}
+module.exports={registerNewUser,loginUser}
