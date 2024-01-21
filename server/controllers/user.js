@@ -28,18 +28,15 @@ const loginUser = async (req,res)=>{
         const match = await bcrypt.compare(req.body.password, userDetails.password)
         console.log(req.body.password)
         if (match){
-            console.log(match)
-            console.log('match')
             res.json({
                 msg:'Login Successfull.'
             })
-        }else             console.log('nomatch')
-        // res.json({
-        //         msg:'Invalid Password.'
-        // })
+        }else  res.status(403).json({
+                msg:'Incorrect Password.'
+        })
     }else{
          res.status(403).json({
-            msg:"Invalid Email."
+            msg:"Email doesn't exists."
         })
     }
     

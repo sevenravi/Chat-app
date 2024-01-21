@@ -6,10 +6,15 @@ import {EyeFilledIcon} from "../../../icons/EyeFilledIcon";
 import {EyeSlashFilledIcon} from "../../../icons/EyeSlashFilledIcon";
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation'
+
 
 const Page = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const router = useRouter()
 
   const login = async (values) => {
     const res = await fetch('http://localhost:5000/login', {
@@ -19,13 +24,11 @@ const Page = () => {
   })
   const data = await res.json()
   toast(data.msg);
-  if ( res.status === 200)  router.push(`/`)  };
+  if ( res.status === 200)  router.push(`/messages`)  };
   const SignInSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string()
-        .min(6, 'Too Short!')
-        .max(50, 'Too Long!')
-        .required('Required'),
+        .required('please enter your password '),
 
 });
 
@@ -60,7 +63,7 @@ const formik = useFormik({
             placeholder="Enter your email"
             value={formik.values.email}
           />
-          {formik.errors.email}
+          <p className='mb-2 ml-3 font-thin text-sm text-white'>{formik.errors.email}</p>
           <Input
             isRequired
             name='password'
@@ -68,7 +71,7 @@ const formik = useFormik({
             placeholder="Enter your password"
             onChange={formik.handleChange}
             value={formik.values.password}
-            className="max-w-xs mb-4"
+            className="max-w-xs mb-2"
               endContent={
                         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
                           {isVisible ? (
@@ -80,6 +83,7 @@ const formik = useFormik({
                       }
                       type={isVisible ? "text" : "password"}
           />
+          <p className='mb-2 ml-3 font-thin text-sm text-white'>{formik.errors.password}</p>
           <div>
           <Button type='submit'>Log in</Button>
           <Link href='' className='ml-4 '>Forget passowrd</Link>
