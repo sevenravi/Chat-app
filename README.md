@@ -19,7 +19,7 @@ Welcome to ChatApp – a simple and user-friendly chat application designed to f
 
 ![Screenshot 2024-01-21 140718](https://github.com/sevenravi/Chat-app/assets/117193064/84e48fa2-d36d-4c3d-ade7-ec73d5b0c7e9)   Home/Login Page
 
-![Screenshot 2024-01-21 140718](https://github.com/sevenravi/Chat-app/assets/117193064/1bd7ae9d-b242-4203-9b6d-1520297e0384)  Registration Page
+![Screenshot 2024-01-21 141637](https://github.com/sevenravi/Chat-app/assets/117193064/7ab57ca8-bd31-470b-92b5-7fe9315113c8)  Registration Page
 
 
 ## Installation
