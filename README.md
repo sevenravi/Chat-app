@@ -7,8 +7,8 @@ Welcome to ChatApp – a simple and user-friendly chat application designed to f
 
 ## Features
 
-- Real-time Messaging: Experience instant messaging with real-time updates.
 - User Authentication: Secure your conversations with user authentication.
+- Real-time Messaging: Experience instant messaging with real-time updates.
 - Emojis and GIFs: Express yourself using a wide range of emojis and GIFs.
 - File Sharing: Share files easily with other users.
 - Dark Mode: Enjoy a comfortable chat experience with a dark mode option.
