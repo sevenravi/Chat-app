@@ -71,7 +71,7 @@ const formik = useFormik({
             placeholder="Enter your password"
             onChange={formik.handleChange}
             value={formik.values.password}
-            className="max-w-xs mb-2"
+            className="max-w-xs mb-2 "
               endContent={
                         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
                           {isVisible ? (
