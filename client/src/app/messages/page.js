@@ -1,10 +1,7 @@
 'use client'
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 const page = () => {
-  const z = useSelector(state=>state.count)
-  console.log(z)
   return (
     
     <div className='flex flex-row h-screen text-white bg-zinc-800' >
@@ -15,3 +12,5 @@ const page = () => {
 }
 
 export default page
+
+

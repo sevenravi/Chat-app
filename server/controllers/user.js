@@ -33,6 +33,7 @@ const loginUser = async (req,res)=>{
             //json web token generated 
             const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
             res.json({
+                userDetails,
                 msg:'Login Successfull.',
                 token
             })
