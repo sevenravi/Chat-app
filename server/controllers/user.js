@@ -1,9 +1,9 @@
 const User = require('../models/user')
 const bcrypt = require('bcrypt');
 const saltRounds = 10
+const jwt = require('jsonwebtoken');
 
-
-//controller to register new user using POST: '/register'
+//controller to register new user using POST: '/register' no login required
 const registerNewUser = async (req,res)=>{
     //checkin existing user 
     const existingUser = await User.findOne({email:req.body.email})
@@ -19,6 +19,8 @@ const registerNewUser = async (req,res)=>{
         msg :"Successfully created new account."
     })
 }
+
+//controller to login using POST : '/login no login required
 const loginUser = async (req,res)=>{
     //checkin  user email
     const userDetails = await User.findOne({email:req.body.email})
@@ -28,8 +30,11 @@ const loginUser = async (req,res)=>{
         const match = await bcrypt.compare(req.body.password, userDetails.password)
         console.log(req.body.password)
         if (match){
+            //json web token generated 
+            const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
             res.json({
-                msg:'Login Successfull.'
+                msg:'Login Successfull.',
+                token
             })
         }else  res.status(403).json({
                 msg:'Incorrect Password.'
@@ -42,4 +47,8 @@ const loginUser = async (req,res)=>{
     
 }
 
-module.exports={registerNewUser,loginUser}
+const getUser =()=>{
+
+}
+
+module.exports={registerNewUser,loginUser,getUser}

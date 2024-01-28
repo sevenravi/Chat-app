@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from "./providers.js";
 import { ToastContainer } from 'react-toastify';
-
+import ReduxProvider from '../redux/reduxProvider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,18 +15,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-        <ToastContainer
-            position="top-right"
-            autoClose={700}
-            hideProgressBar={true}
-            closeOnClick
-            pauseOnFocusLoss
-            pauseOnHover
-            theme="light"
-          />
-          {children}
-        </Providers>
+        <ReduxProvider>
+          <Providers>
+            <ToastContainer
+              position="top-right"
+              autoClose={700}
+              hideProgressBar={true}
+              closeOnClick
+              pauseOnFocusLoss
+              pauseOnHover
+              theme="light"
+            />
+            {children}
+          </Providers>
+        </ReduxProvider>
       </body>
     </html>
   )
