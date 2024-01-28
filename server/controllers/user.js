@@ -48,8 +48,10 @@ const loginUser = async (req,res)=>{
     
 }
 
-const getUser =()=>{
-
+const getUser =async (req,res)=>{
+    const user =await User.find()
+   res.json(user)
+   console.log(user)
 }
 
 module.exports={registerNewUser,loginUser,getUser}

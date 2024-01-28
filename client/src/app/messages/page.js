@@ -1,7 +1,19 @@
 'use client'
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
 const page = () => {
+  const userList=async ()=>{
+    const [list, setlist] = useState([])
+    const res = await fetch('http://localhost:5000/getuser')
+    const data =await res.json()
+    setlist(data)
+    console.log(list)
+    
+  }
+  useEffect(() => {
+    userList()
+  }, [])
+  
+
   return (
     
     <div className='flex flex-row h-screen text-white bg-zinc-800' >
