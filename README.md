@@ -7,12 +7,12 @@ Welcome to ChatApp – a simple and user-friendly chat application designed to f
 
 ## Features
 
--[x] User Authentication: Secure your conversations with user authentication.
--[] Real-time Messaging: Experience instant messaging with real-time updates.
--[] File Sharing: Share files easily with other users.
--[] Emojis and GIFs: Express yourself using a wide range of emojis and GIFs.
--[] Dark Mode: Enjoy a comfortable chat experience with a dark mode option.
--[] Customization: Personalize your profile and chat settings.
+- [x] User Authentication: Secure your conversations with user authentication.
+- [] Real-time Messaging: Experience instant messaging with real-time updates.
+- [] File Sharing: Share files easily with other users.
+- [] Emojis and GIFs: Express yourself using a wide range of emojis and GIFs.
+- [] Dark Mode: Enjoy a comfortable chat experience with a dark mode option.
+- [] Customization: Personalize your profile and chat settings.
 
 
 ## Screenshots

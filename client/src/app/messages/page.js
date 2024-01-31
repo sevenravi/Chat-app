@@ -16,6 +16,9 @@ const page = () => {
     userList()
   }, [])
 
+  const handleOnPress =(item)=>{
+    setselectedItem(item)
+  }
 
   return (
 
@@ -23,18 +26,17 @@ const page = () => {
       {/* {JSON.stringify(list)} */}
       <div className="border-white border-1 m-8 ml-17 w-1/3" >
       {list.length>0 && list.map((item,id)=>{
-        return (<Card onPress={()=>setselectedItem(item)} className='mb-1'>
+        return (<div key={id}  onClick={()=>handleOnPress(item)}>
+          <Card  className= {selectedItem?._id == item._id ? 'mb-1 bg-blue-500':'mb-1'}>
           <CardBody>
-            
              {item.name}
             
           </CardBody>
-        </Card>)
+        </Card></div>)
         
         })}
-        {console.log(selectedItem)}
       </div>
-      <div className="border-white border-1 m-8 w-2/3" >Seven D Great</div>
+      <div className="border-white border-1 m-8 w-2/3" >Seven D Great   {JSON.stringify(selectedItem)}</div>
     </div>
   )
 }
