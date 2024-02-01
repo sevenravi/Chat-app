@@ -17,6 +17,7 @@ export const userSlice = createSlice({
                 userDetails,
                 token,
             }
+            // state.isLoggedIn=true
         },
     }
 });
