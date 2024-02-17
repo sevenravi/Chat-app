@@ -2,27 +2,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    userDetails:{},
-    token:'',
-    isLoggedIn:false,
+    detail:'seven ',
 }
 export const selectedUserSlice = createSlice({
     name: 'selectedUser',
     initialState,
     reducers: {
-        details: (state, action) => {
-            const {userDetails,token} = action.payload
+        selectedUserDetails: (state, action) => {
+            const {detail} = action.payload
             return {
-                ...state,
-                userDetails,
-                token,
+                detail,
             }
         },
     }
 });
 
 // this is for dispatch
-export const { Details } = selectedUserSlice.actions;
+export const { selectedUserDetails } = selectedUserSlice.actions;
 
 // this is for configureStore
 export default selectedUserSlice.reducer;

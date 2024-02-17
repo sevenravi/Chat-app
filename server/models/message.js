@@ -3,8 +3,13 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema({
   name: String,
-  text:{type:String,},
-  date:Date.now(),
+  text:{
+    type:String,
+},
+  date:{
+    type:Date,
+    default:Date.now
+},
 });
  const Message= mongoose.model('Message',messageSchema)
  module.exports = Message
