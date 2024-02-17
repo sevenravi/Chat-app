@@ -21,9 +21,8 @@ const chatInbox = () => {
     
       const handleOnPress = (item) => {
         setselectedItem(item)
-        dispatch(selectedUserDetails(item))
-        console.log('SelectedUserDetails after dispatch:', selectedUserDetails);
-      }
+        dispatch(selectedUserDetails({detail:item}))
+        }
 
   return (
     
@@ -33,7 +32,7 @@ const chatInbox = () => {
               <Card className={selectedItem?._id == item._id ? 'mb-1 bg-zinc-200' : 'mb-1'}>
                 <CardBody>
                   {item.name}
-                  {JSON.stringify(item)}
+                  {/* {JSON.stringify(item)} */}
                 </CardBody>
               </Card></div>)
 

@@ -11,12 +11,12 @@ const ChatComponent = () => {
       <div className="chat-body my-2 mr-2 border-1 h-5/6">
         <section className='incoming-msg my-1 mx-3 w-3/4'>
           <span className="label">ram:</span><br/>
-          <span className="message-bg bg-blue-400"></span>
+          <span className="message bg-red-400"></span>
           <span>hi</span>
         </section>
         <section className='outgoing-msg my-1 mx-3 w-3/4'>
           <span className="label">me:</span><br/>
-          <span className="message-bg bg-gray-400"></span>
+          <span className="message bg-blue-400"></span>
           <span>hi k cha?</span>
         </section>
       </div>

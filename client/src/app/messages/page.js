@@ -5,9 +5,9 @@ import ChatComponent from './chatComponent';
 import ChatInbox from './chatInbox';
 import { useSelector } from 'react-redux';
 
-const page = () => {
+const Page = () => {
 
-  const { User } = useSelector(state => state.selectedUser)
+  const  {detail:selectedUserDetails}  = useSelector(state => state.selectedUser)
 
 
 
@@ -31,15 +31,15 @@ const page = () => {
       </div>
       <div className="flex m-4 ml-2  w-3/12 ">
         <div className="border-1 m-2 bg-white rounded-2xl	 text-black w-11/12  ">
-          profile view
-          {User}
-          {JSON.stringify(User)}
+                   
+          {selectedUserDetails?.name}
+          
         </div>
       </div>
     </div>
   )
 }
 
-export default page
+export default Page
 
 
