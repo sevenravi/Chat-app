@@ -3,6 +3,8 @@ import './globals.css'
 import { Providers } from "./providers.js";
 import { ToastContainer } from 'react-toastify';
 import ReduxProvider from '../redux/reduxProvider';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +28,7 @@ export default function RootLayout({ children }) {
               pauseOnHover
               theme="light"
             />
-            {children}
+            <AntdRegistry>{children}</AntdRegistry>
           </Providers>
         </ReduxProvider>
       </body>

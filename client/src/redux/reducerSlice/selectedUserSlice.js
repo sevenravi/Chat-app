@@ -8,17 +8,14 @@ export const selectedUserSlice = createSlice({
     name: 'selectedUser',
     initialState,
     reducers: {
-        selectedUserDetails: (state, action) => {
-            const {detail} = action.payload
-            return {
-                detail,
-            }
+        setSelectedUserDetails: (state, action) => {
+            state.detail= action.payload.detail
         },
     }
 });
 
 // this is for dispatch
-export const { selectedUserDetails } = selectedUserSlice.actions;
+export const { setSelectedUserDetails } = selectedUserSlice.actions;
 
 // this is for configureStore
 export default selectedUserSlice.reducer;
