@@ -54,4 +54,15 @@ const getUser =async (req,res)=>{
    console.log(user)
 }
 
-module.exports={registerNewUser,loginUser,getUser}
+const uploadAvatar =async (req,res)=>{
+    try {
+        req.body.avatar= req.file.filename
+    await User.findByIdAndUpdate('65b658cb443103e16e42890f',req.body)
+    res.json({msg:"avatar uploded"})
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
+
+module.exports={registerNewUser,loginUser,getUser,uploadAvatar}
