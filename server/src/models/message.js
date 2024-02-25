@@ -2,7 +2,14 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const messageSchema = new Schema({
-  name: String,
+  senderId:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  receiverId:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
   text:{
     type:String,
 },
