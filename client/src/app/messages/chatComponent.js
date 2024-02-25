@@ -2,19 +2,24 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Button, Input } from "@nextui-org/react";
 import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
 
 const ChatComponent = () => {
   const { detail: selectedUserDetails } = useSelector(state => state.selectedUser)
   const [msg, setMsg] = useState('')
   const [msgList, setMsgList] = useState([])
+
+  const socket = io('http://localhost:5000')
   
   const sendMessage =()=>{
     //  alert(msg)
      setMsgList([...msgList,msg])
-      setMsg('  ')
+      setMsg('')
+      
   }
 
  useEffect(() => {
+  socket.on('connection')
    console.log(msgList)
  
    
