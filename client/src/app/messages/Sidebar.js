@@ -5,13 +5,16 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import { logout } from '@/redux/reducerSlice/userSlice';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
 
   const dispatch=useDispatch()
+  const router = useRouter()
 
   const handleLogout=()=>{
         dispatch(logout())
+        router.push('/')
   }
   return (
     <div className="flex flex-col   m-2 mr-1 ">
