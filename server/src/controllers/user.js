@@ -25,10 +25,10 @@ const loginUser = async (req,res)=>{
     //checkin  user email
     const userDetails = await User.findOne({email:req.body.email})
     if (userDetails){
-        console.log(userDetails)
+        // console.log(userDetails)
         //comparing hash password with login password
         const match = await bcrypt.compare(req.body.password, userDetails.password)
-        console.log(req.body.password)
+        // console.log(req.body.password)
         if (match){
             //json web token generated 
             const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
@@ -51,7 +51,7 @@ const loginUser = async (req,res)=>{
 const getUser =async (req,res)=>{
     const user =await User.find()
    res.json(user)
-   console.log(user)
+//    console.log(user)
 }
 
 const uploadAvatar =async (req,res)=>{

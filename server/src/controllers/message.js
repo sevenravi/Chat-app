@@ -5,5 +5,11 @@ const addText =async (req,res)=>{
     res.json(req.body)
 
 }
+const getText =async (req,res)=>{
+    // const {senderId,receiverId} = req.body
+    const item = await Message.find()
+        res.json(item)
 
-module.exports={addText}
+}
+
+module.exports={addText,getText}

@@ -3,9 +3,16 @@ import {Divider} from "@nextui-org/react";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
-
+import { logout } from '@/redux/reducerSlice/userSlice';
+import { useDispatch } from 'react-redux';
 
 const Sidebar = () => {
+
+  const dispatch=useDispatch()
+
+  const handleLogout=()=>{
+        dispatch(logout())
+  }
   return (
     <div className="flex flex-col   m-2 mr-1 ">
 
@@ -22,7 +29,7 @@ const Sidebar = () => {
       </div>
 
       <div className="sidebar-footer">
-        <section className='my-2 flex flex-col items-center p-2 mb-10 cursor-pointer'>
+        <section className='my-2 flex flex-col items-center p-2 mb-10 cursor-pointer'onClick={()=>handleLogout()}>
           <IoIosLogOut size={'28px'} />
           <span className='text-xs text-gray-300 m-1'>Logout</span>
         </section>
