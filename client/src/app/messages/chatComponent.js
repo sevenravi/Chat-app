@@ -29,6 +29,7 @@ const ChatComponent = () => {
 
  useEffect(() => {
   socket.on('connection')
+  socket.emit('add users',userDetails._id)
   getMsgList()
  
    

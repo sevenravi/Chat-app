@@ -27,9 +27,21 @@ const port = process.env.PORT;
 
 connection();
 
+const connectedUsers =[];
+
+
+const addUser = (socketId,userId)=>{
+  userDetais = {socketId,userId}
+  connectedUsers.push(userDetais)
+    console.log(connectedUsers)
+}
+
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  
+  socket.on('add users',(userId)=>{
+      addUser(socket.id,userId)
+  })
 });
 
 
