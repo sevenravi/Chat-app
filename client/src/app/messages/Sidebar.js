@@ -1,4 +1,5 @@
-import React from 'react';
+'use client'
+import React , { useState} from 'react';
 import {Divider} from "@nextui-org/react";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
@@ -6,7 +7,8 @@ import { FaMessage } from "react-icons/fa6";
 import { logout } from '@/redux/reducerSlice/userSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
-
+import { Drawer } from 'antd';
+import Profile from '@/components/profile/page';
 const Sidebar = () => {
 
   const dispatch=useDispatch()
@@ -16,6 +18,16 @@ const Sidebar = () => {
         dispatch(logout())
         router.push('/')
   }
+
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <div className="flex flex-col   m-2 mr-1 ">
 
@@ -25,9 +37,9 @@ const Sidebar = () => {
           <span className='text-xs text-gray-300 m-1'>All chats</span>
         </section>
         <Divider className="bg-gray-500" style={{ height: "2px" }}/>
-      <section className='my-2 flex flex-col items-center cursor-pointer'>
+      <section className='my-2 flex flex-col items-center cursor-pointer'onClick={showDrawer}>
           <FaUserCircle color='gray' size={'30px'} />
-          <span className='text-xs text-gray-300 m-1'>Profile</span>
+          <span className='text-xs text-gray-300 m-1' >Profile</span>
         </section>
       </div>
 
@@ -37,7 +49,13 @@ const Sidebar = () => {
           <span className='text-xs text-gray-300 m-1'>Logout</span>
         </section>
       </div>
-      
+
+      <Drawer  onClose={onClose} open={open}>
+        <Profile/>
+        hi
+      </Drawer>
+
+
     </div>
   );
 }

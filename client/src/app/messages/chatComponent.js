@@ -31,7 +31,9 @@ const ChatComponent = () => {
   socket.on('connection')
   socket.emit('add users',userDetails._id)
   getMsgList()
- 
+  return ()=>{
+    socket.disconnect()
+  }
    
  }, [])
 

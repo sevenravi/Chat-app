@@ -33,7 +33,10 @@ const connectedUsers =[];
 const addUser = (socketId,userId)=>{
   userDetais = {socketId,userId}
   connectedUsers.push(userDetais)
-    console.log(connectedUsers)
+    // console.log(connectedUsers)
+}
+const removeUser = (socketId,userId)=>{
+  console.log(socketId +' is disconnected ' + userId)
 }
 
 
@@ -41,6 +44,9 @@ io.on('connection', (socket) => {
   
   socket.on('add users',(userId)=>{
       addUser(socket.id,userId)
+  })
+  socket.on('disconnect',(userId)=>{
+    removeUser(socket.id,userId)
   })
 });
 
