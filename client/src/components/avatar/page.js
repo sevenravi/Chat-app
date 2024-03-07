@@ -8,7 +8,7 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-const App = () => {
+const Avatar = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -73,4 +73,4 @@ const App = () => {
     </>
   );
 };
-export default App;
+export default Avatar;

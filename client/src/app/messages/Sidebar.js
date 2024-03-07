@@ -52,7 +52,6 @@ const Sidebar = () => {
 
       <Drawer  onClose={onClose} open={open}>
         <Profile/>
-        hi
       </Drawer>
 
 
