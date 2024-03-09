@@ -4,7 +4,7 @@ const { createServer } = require('node:http');
 require('dotenv').config()
 const app = express()
 const { Server } = require('socket.io');
-
+const Message = require('./models/message')
 const server = createServer(app);
 const io = new Server(server,{
   cors: {
@@ -27,16 +27,20 @@ const port = process.env.PORT;
 
 connection();
 
-const connectedUsers =[];
+let  connectedUsers =[];
 
 
 const addUser = (socketId,userId)=>{
-  userDetais = {socketId,userId}
-  connectedUsers.push(userDetais)
-    // console.log(connectedUsers)
+  userDetails = {socketId,userId}
+  connectedUsers.push(userDetails)
 }
-const removeUser = (socketId,userId)=>{
-  console.log(socketId +' is disconnected ' + userId)
+const getUser = (userId)=>{
+  return connectedUsers.find((item)=>item.userId === userId) 
+  
+}
+const removeUser = (socketId)=>{
+  connectedUsers= connectedUsers.filter ((item)=>item.socketId != socketId)
+  console.log(connectedUsers)
 }
 
 
@@ -44,6 +48,15 @@ io.on('connection', (socket) => {
   
   socket.on('add users',(userId)=>{
       addUser(socket.id,userId)
+  })
+  socket.on('send msg',({senderId,receiverId,text})=>{
+      const user = getUser(receiverId)
+       Message.create({senderId,receiverId,text})
+       if (user) {
+          io.to(user.socketId).emit('receive msg',{senderId,receiverId,text})
+       }else {
+          console.log("user is offline")
+       }
   })
   socket.on('disconnect',(userId)=>{
     removeUser(socket.id,userId)

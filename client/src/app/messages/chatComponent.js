@@ -16,29 +16,36 @@ const ChatComponent = () => {
   
   const sendMessage =async()=>{
     //  alert(msg)
-     setMsgList([...msgList,msg])
+     setMsgList([...msgList,{senderId : userDetails._id,receiverId : selectedUserDetails._id,text : msg}])
       setMsg('')
-      const {data}=await axios.post(`http://localhost:5000/new-text`,{
-        senderId : userDetails._id,
-        receiverId : selectedUserDetails._id,
-        text : msg
-      })
-      console.log(data)
+      socket.emit('send msg',{senderId : userDetails._id,receiverId : selectedUserDetails._id,text : msg})
+      // const {data}=await axios.post(`http://localhost:5000/new-text`,{
+      //   senderId : userDetails._id,
+      //   receiverId : selectedUserDetails._id,
+      //   text : msg
+      // })
+      // console.log(data)
          
   }
 
  useEffect(() => {
   socket.on('connection')
   socket.emit('add users',userDetails._id)
+  socket.on ('receive msg',(data)=>{
+    console.log('received')
+    // setMsgList(...msgList,data)
+    // console.log(setMsgList)
+  })
   getMsgList()
-  return ()=>{
-    socket.disconnect()
-  }
+  // return ()=>{
+  //   socket.disconnect()
+  // }
    
- }, [])
+ },[])
 
  const getMsgList =async()=>{
       const {data}=await axios.get(`http://localhost:5000/texts`)
+      // console.log(data)
       setMsgList(data)
  }
  

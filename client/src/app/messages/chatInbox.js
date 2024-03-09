@@ -19,7 +19,7 @@ const chatInbox = () => {
       }
       useEffect(() => {
         userList()
-        console.log(userDetails._id)
+        // console.log(userDetails._id)
       }, [])
     
       const handleOnPress = (item) => {
