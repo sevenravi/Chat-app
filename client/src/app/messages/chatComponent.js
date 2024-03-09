@@ -41,10 +41,10 @@ const ChatComponent = () => {
   //   socket.disconnect()
   // }
    
- },[])
+ },[selectedUserDetails._id])
 
  const getMsgList =async()=>{
-      const {data}=await axios.get(`http://localhost:5000/texts`)
+      const {data}=await axios.get(`http://localhost:5000/texts?senderId=${userDetails._id}&receiverId=${selectedUserDetails._id}`)
       // console.log(data)
       setMsgList(data)
  }

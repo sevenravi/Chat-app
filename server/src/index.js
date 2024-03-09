@@ -40,7 +40,7 @@ const getUser = (userId)=>{
 }
 const removeUser = (socketId)=>{
   connectedUsers= connectedUsers.filter ((item)=>item.socketId != socketId)
-  console.log(connectedUsers)
+  // console.log(connectedUsers)
 }
 
 

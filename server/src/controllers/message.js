@@ -6,8 +6,13 @@ const addText =async (req,res)=>{
 
 }
 const getText =async (req,res)=>{
-    // const {senderId,receiverId} = req.body
-    const item = await Message.find()
+    const {senderId,receiverId} = req.query
+    const item = await Message.find({
+        $or:[
+            {senderId:senderId,receiverId:receiverId},
+            {senderId:receiverId,receiverId:senderId}
+        ]
+    })
         res.json(item)
 
 }
