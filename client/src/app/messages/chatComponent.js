@@ -32,7 +32,8 @@ const ChatComponent = () => {
   socket.on('connection')
   socket.emit('add users',userDetails._id)
   socket.on ('receive msg',(data)=>{
-    console.log('received')
+    debugger;
+    console.log('received',data)
     // setMsgList(...msgList,data)
     // console.log(setMsgList)
   })
@@ -44,9 +45,12 @@ const ChatComponent = () => {
  },[selectedUserDetails._id])
 
  const getMsgList =async()=>{
-      const {data}=await axios.get(`http://localhost:5000/texts?senderId=${userDetails._id}&receiverId=${selectedUserDetails._id}`)
+  if (selectedUserDetails._id){
+    const {data}=await axios.get(`http://localhost:5000/texts?senderId=${userDetails._id}&receiverId=${selectedUserDetails._id}`)
       // console.log(data)
       setMsgList(data)
+  }
+      
  }
  
 
