@@ -35,12 +35,12 @@ const addUser = (socketId,userId)=>{
   connectedUsers.push(userDetails)
 }
 const getUser = (userId)=>{
-  return connectedUsers.find((item)=>item.userId === userId) 
+ return connectedUsers.find((item)=>item.userId === userId) 
   
 }
 const removeUser = (socketId)=>{
-  connectedUsers= connectedUsers.filter ((item)=>item.socketId != socketId)
-  // console.log(connectedUsers)
+  connectedUsers= connectedUsers.filter ((item)=>item.socketId !== socketId)
+  console.log('disconnected users',connectedUsers)
 }
 
 
@@ -53,13 +53,16 @@ io.on('connection', (socket) => {
       const user = getUser(receiverId)
        Message.create({senderId,receiverId,text})
        if (user) {
+        console.log('hi am use '+user.socketId)
           io.to(user.socketId).emit('receive msg',{senderId,receiverId,text})
+          
        }else {
           console.log("user is offline")
        }
   })
-  socket.on('disconnect',(userId)=>{
-    removeUser(socket.id,userId)
+  socket.on('disconnect',()=>{
+    removeUser(socket.id)
+
   })
 });
 

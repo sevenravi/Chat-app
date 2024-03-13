@@ -28,20 +28,20 @@ const ChatComponent = () => {
          
   }
 
- useEffect(() => {
-  socket.on('connection')
-  socket.emit('add users',userDetails._id)
-  socket.on ('receive msg',(data)=>{
+  useEffect(()=>{
     debugger;
-    console.log('received',data)
-    // setMsgList(...msgList,data)
-    // console.log(setMsgList)
-  })
+    const eventListner =(data)=>{
+      setMsgList(prevMsgList => [...prevMsgList, data]);
+
+    }
+    socket.on('connection')
+    socket.emit('add users',userDetails._id)
+    socket.on ('receive msg',eventListner)
+    return ()=> socket.off('receive msg',eventListner)
+  },[])
+
+ useEffect(() => {
   getMsgList()
-  // return ()=>{
-  //   socket.disconnect()
-  // }
-   
  },[selectedUserDetails._id])
 
  const getMsgList =async()=>{
