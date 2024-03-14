@@ -46,6 +46,7 @@ const removeUser = (socketId)=>{
 
 io.on('connection', (socket) => {
   
+  
   socket.on('add users',(userId)=>{
       addUser(socket.id,userId)
   })
@@ -53,7 +54,7 @@ io.on('connection', (socket) => {
       const user = getUser(receiverId)
        Message.create({senderId,receiverId,text})
        if (user) {
-        console.log('hi am use '+user.socketId)
+        console.log('hi am user '+user.socketId)
           io.to(user.socketId).emit('receive msg',{senderId,receiverId,text})
           
        }else {
