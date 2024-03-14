@@ -29,7 +29,7 @@ const ChatComponent = () => {
   }
 
   useEffect(()=>{
-    debugger;
+    // debugger;
     const eventListner =(data)=>{
       setMsgList(prevMsgList => [...prevMsgList, data]);
 
@@ -37,7 +37,12 @@ const ChatComponent = () => {
     socket.on('connection')
     socket.emit('add users',userDetails._id)
     socket.on ('receive msg',eventListner)
-    return ()=> socket.off('receive msg',eventListner)
+    // return ()=> {
+    //   socket.off('receive msg',eventListner)
+    //   debugger;
+    //   socket.emit('remove')
+    //   // socket.disconnect()
+    // }
   },[])
 
  useEffect(() => {

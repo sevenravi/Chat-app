@@ -3,7 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Tabs, Tab } from "@nextui-org/react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUserDetails } from '@/redux/reducerSlice/selectedUserSlice';
+import { io } from 'socket.io-client';
 
+
+const socket = io('http://localhost:5000')
 
 const chatInbox = () => {
   const [list, setlist] = useState([])
@@ -45,8 +48,19 @@ const chatInbox = () => {
     )
   }
   const ActiveNow =()=>{
+    const [onlineUsers, setonlineUsers] = useState([])
+    useEffect(() => {
+      socket.emit('online users')
+      socket.on('online users',(data)=>{
+        // debugger;
+        setonlineUsers(data)
+        console.log(data,'hi')} )
+    
+     
+    }, [])
     return (
       <div>
+        {JSON.stringify(onlineUsers)}
         <ul>
         <li>ravi</li>
         <li>ravi</li>

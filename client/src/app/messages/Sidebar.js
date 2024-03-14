@@ -9,12 +9,16 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Drawer } from 'antd';
 import Profile from '@/components/profile/page';
+import { io } from 'socket.io-client';
+
 const Sidebar = () => {
+  const socket = io('http://localhost:5000')
 
   const dispatch=useDispatch()
   const router = useRouter()
 
   const handleLogout=()=>{
+    socket.emit('remove')
         dispatch(logout())
         router.push('/')
   }
